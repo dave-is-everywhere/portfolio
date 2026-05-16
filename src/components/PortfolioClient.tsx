@@ -424,6 +424,7 @@ export default function PortfolioClient() {
                 <div
                   key={exp.number}
                   className={`exp-index-item${idx === 0 ? ' active' : ''}`}
+                  data-step={`${exp.number} / ${String(experiences.length).padStart(2, '0')}`}
                 >
                   {exp.indexLabel}
                 </div>
