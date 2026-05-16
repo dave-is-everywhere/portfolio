@@ -663,9 +663,25 @@ h1 {
 @media (max-width: 900px) {
   .hero-text-wrapper { padding: 4rem 2rem; }
 
-  /* UI Layer: reduce padding */
+  /* UI Layer: reduce padding, redesign footer */
   .ui-layer { padding: 1.5rem; }
-  .footer { gap: 1rem; flex-wrap: wrap; }
+
+  /* Hide STATUS / PARTICLES / PHYSICS block on mobile */
+  .footer > .micro-data:first-child { display: none; }
+
+  /* Center scroll indicator absolutely, anchor coordinates right */
+  .footer {
+    position: relative;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+  .scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin: 0 auto;
+  }
 
   /* Competencies: tighter spacing, more breathing room */
   .competencies-container {
@@ -683,14 +699,23 @@ h1 {
   .competency-content h3 { font-size: 1.05rem; }
   .competency-content p { font-size: 0.85rem; line-height: 1.5; }
 
-  /* Experience: full-height column layout (prevents card overlap with index) */
+  /* Experience: absolute positioning to guarantee header/footer clearance */
+  .experience-section { display: block; }
+
   .exp-container {
+    position: absolute;
+    top: 4.5rem;       /* clear UI header */
+    bottom: 4.5rem;    /* clear UI footer */
+    left: 1.5rem;
+    right: 1.5rem;
+    width: auto;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 5rem 1.5rem 4rem;   /* top: clear UI header, bottom: clear UI footer */
-    height: 100vh;
-    max-height: 100vh;
-    width: 100%;
   }
 
   .exp-left {
