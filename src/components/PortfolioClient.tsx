@@ -286,13 +286,21 @@ export default function PortfolioClient() {
         }
       });
 
-      /* Experience */
-      if (scrollY > expFadeInStart && scrollY < contactStart - wh * 0.5) {
+      /* Experience — section fade-out runs DURING last card's exit phase */
+      const totalCards    = expCards.length;
+      const cardScrollStep = (experienceEnd - experienceStart) / totalCards;
+      // Last card exit phase: dist 0.7 → 1.1 (i.e. card fading from 1 → 0)
+      const lastCardExitStart = experienceStart + (totalCards - 1 + 0.7) * cardScrollStep;
+      const lastCardExitEnd   = experienceStart + (totalCards - 1 + 1.1) * cardScrollStep;
+
+      if (scrollY > expFadeInStart && scrollY < lastCardExitStart) {
+        // Fade in / fully visible while cards are alive
         expSec.style.opacity = String(Math.min(1, (scrollY - expFadeInStart) / (wh * 0.5)));
         expSec.style.pointerEvents = 'auto';
         expSec.classList.add('section-active');
-      } else if (scrollY >= contactStart - wh * 0.5) {
-        const expFadeOut = Math.max(0, 1 - (scrollY - (contactStart - wh * 0.5)) / (wh * 0.5));
+      } else if (scrollY >= lastCardExitStart) {
+        // Fade out synchronized with last card's exit
+        const expFadeOut = Math.max(0, 1 - (scrollY - lastCardExitStart) / (lastCardExitEnd - lastCardExitStart));
         expSec.style.opacity = String(expFadeOut);
         expSec.style.pointerEvents = expFadeOut > 0.5 ? 'auto' : 'none';
         if (expFadeOut <= 0) expSec.classList.remove('section-active');
@@ -302,8 +310,6 @@ export default function PortfolioClient() {
         expSec.classList.remove('section-active');
       }
 
-      const totalCards    = expCards.length;
-      const cardScrollStep = (experienceEnd - experienceStart) / totalCards;
       let activeIndex = -1;
 
       expCards.forEach((card, index) => {
@@ -349,8 +355,10 @@ export default function PortfolioClient() {
       });
 
       /* Contact */
-      if (scrollY > contactStart - wh * 0.2) {
-        const cp = Math.min(1, Math.max(0, (scrollY - (contactStart - wh * 0.2)) / (wh * 0.6)));
+      // Contact fade-in begins right when experience fade-out ends (no gap)
+      const contactFadeStart = lastCardExitEnd;
+      if (scrollY > contactFadeStart) {
+        const cp = Math.min(1, Math.max(0, (scrollY - contactFadeStart) / (wh * 0.5)));
         contactSec.style.opacity = String(cp);
         if (cp > 0) {
           contactSec.classList.add('section-active');
