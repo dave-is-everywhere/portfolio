@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     locale:      'en_US',
   },
   twitter: {
-    card:        'summary',
+    card:        'summary_large_image',
     title:       meta.title,
     description: meta.description,
   },
