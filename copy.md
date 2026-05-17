@@ -7,8 +7,8 @@
 ## 🔷 META
 
 ```
-title:       An Enabler - Portfolio
-description: Turning ideas into reality across strategy, product, and Web3.
+title:       Dave Park - An Enabler
+description: Portfolio - Seongwoong Park
 ```
 
 ---

@@ -1,8 +1,8 @@
 // Single source of truth — edit copy.md then ask Claude to reflect it here.
 
 export const meta = {
-  title: "An Enabler - Portfolio",
-  description: "Turning ideas into reality across strategy, product, and Web3.",
+  title: "Dave Park - An Enabler",
+  description: "Portfolio - Seongwoong Park",
 };
 
 export const header = {
